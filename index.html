@@ -1,0 +1,607 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri's Universe ♡</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pink: #f8dce9;
+  --lavender: #d9c8f2;
+  --purple: #8e68a8;
+  --dark: #493653;
+  --white: #fffaff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fff5fa, #f2eaff, #ffeef5);
+  color: var(--dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 35px 15px 15px;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(35px, 7vw, 58px);
+  color: #8b649f;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  color: #a77d9d;
+  font-size: 12px;
+  letter-spacing: 4px;
+  margin-top: 8px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin: 22px 0;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: #785b89;
+  font-family: inherit;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+nav button:hover {
+  color: #d36e9f;
+}
+
+.page {
+  display: none;
+  animation: fade 0.5s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* HOME */
+
+.home {
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.search-box {
+  position: relative;
+  max-width: 550px;
+  margin: 35px auto;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 17px 22px;
+  border-radius: 50px;
+  border: 1px solid #e4c9e8;
+  background: rgba(255,255,255,0.8);
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  color: #62476d;
+  box-shadow: 0 8px 25px #caa9d526;
+}
+
+.search-box input:focus {
+  border-color: #bd91cb;
+}
+
+.suggestions {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px #9e79a52b;
+  z-index: 10;
+  overflow: hidden;
+  display: none;
+  text-align: left;
+}
+
+.suggestions div {
+  padding: 13px 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.suggestions div:hover {
+  background: #f8e9f4;
+}
+
+.intro {
+  max-width: 700px;
+  margin: 40px auto;
+  line-height: 2;
+  font-size: 15px;
+  color: #705677;
+}
+
+.intro .highlight {
+  font-family: 'Playfair Display', serif;
+  font-size: 21px;
+  color: #a15f92;
+  font-style: italic;
+}
+
+.line {
+  width: 90px;
+  height: 2px;
+  background: #d9b8e0;
+  margin: 30px auto;
+}
+
+.instruction {
+  font-family: 'Playfair Display', serif;
+  font-size: 23px;
+  color: #986a9e;
+  margin: 30px auto;
+  line-height: 1.6;
+}
+
+.main-btn {
+  border: none;
+  padding: 13px 30px;
+  border-radius: 40px;
+  background: linear-gradient(120deg, #e7b8d4, #cdb6ec);
+  color: white;
+  font-family: inherit;
+  cursor: pointer;
+  margin: 15px;
+  transition: 0.3s;
+}
+
+.main-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px #c9a5d555;
+}
+
+/* ANSWER PAGE */
+
+.answer-card {
+  max-width: 750px;
+  margin: 60px auto;
+  padding: 45px 30px;
+  text-align: center;
+  background: #ffffffa8;
+  border: 1px solid #edd8ef;
+  border-radius: 28px;
+  box-shadow: 0 15px 45px #b99bc32a;
+}
+
+.answer-card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 6vw, 45px);
+  color: #98689e;
+  margin-bottom: 15px;
+}
+
+.answer-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 21px;
+  color: #b47ca9;
+  margin-bottom: 25px;
+}
+
+.answer-text {
+  white-space: pre-line;
+  font-size: 15px;
+  line-height: 2.2;
+  color: #68536f;
+  padding: 10px;
+}
+
+.back-btn {
+  background: transparent;
+  border: 1px solid #d6b8df;
+  color: #926a9e;
+  padding: 11px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 25px;
+  font-family: inherit;
+}
+
+/* ABOUT HER */
+
+.about {
+  max-width: 800px;
+  margin: 35px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.about h1 {
+  font-family: 'Playfair Display', serif;
+  color: #98689e;
+  font-size: 40px;
+}
+
+.about p {
+  margin: 15px 0 30px;
+  font-size: 13px;
+  color: #9b779f;
+}
+
+.question-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.question {
+  background: #ffffffa8;
+  border: 1px solid #ead5ed;
+  border-radius: 17px;
+  padding: 18px;
+  color: #795b87;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: inherit;
+}
+
+.question:hover {
+  background: #f9e5f2;
+  transform: translateY(-4px);
+}
+
+.question span {
+  display: block;
+  font-size: 11px;
+  margin-top: 5px;
+  color: #b28eae;
+}
+
+/* FLOATING HEARTS */
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  color: #e6a9ce;
+  pointer-events: none;
+  animation: floatUp linear forwards;
+  z-index: -1;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 35px 10px;
+  color: #ae8eaf;
+  font-size: 12px;
+}
+
+@media(max-width:600px) {
+  .question-list {
+    grid-template-columns: 1fr;
+  }
+
+  .answer-card {
+    margin: 35px 15px;
+    padding: 35px 18px;
+  }
+
+  .intro {
+    font-size: 13px;
+  }
+
+  nav {
+    gap: 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Sri's Universe ♡</div>
+  <div class="subtitle">A LITTLE WORLD OF HER</div>
+
+  <nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('about')">About Her</button>
+  </nav>
+</header>
+
+<!-- HOME PAGE -->
+
+<section id="home" class="page active">
+<div class="home">
+
+  <div class="search-box">
+    <input
+      type="text"
+      id="search"
+      placeholder="Search anything about her... ♡"
+      autocomplete="off"
+      oninput="searchItems()"
+      onkeydown="if(event.key==='Enter') openFirstResult()"
+    >
+    <div class="suggestions" id="suggestions"></div>
+  </div>
+
+  <div class="intro">
+    Agar mai Sri pe likhne baithu to umm Sabdo ki kaha itni hasiyat jo Tumhe Baya kare paaye kahir Kuch likhu to
+    <br><br>
+
+    <span class="highlight">
+      Tumhe sochne se hi ek noor sa chha jata hai rooh mein...<br>
+      Tumhe dekh kar toh khuda bhi apni banawat par muskurata hoga
+    </span>
+
+    <br><br>
+
+    Wah wah wah . literally she is dam cute beautiful with Very Beautiful eyes .
+    <br><br>
+
+    <span class="highlight">She is Goddess ♡</span>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="instruction">
+    If you want to know about her,<br>
+    go to search option and ask anything about her ♡
+  </div>
+
+  <button class="main-btn" onclick="showPage('about')">
+    Explore About Her ♡
+  </button>
+
+</div>
+</section>
+
+<!-- ANSWER PAGE -->
+
+<section id="answer" class="page">
+  <div class="answer-card">
+    <div style="font-size:25px;margin-bottom:15px;">♡ ✧ ♡</div>
+    <h1 id="answerTitle"></h1>
+    <div class="answer-subtitle" id="answerSubtitle"></div>
+    <div class="line"></div>
+    <div class="answer-text" id="answerText"></div>
+    <button class="back-btn" onclick="showPage('home')">
+      ← Back to Home
+    </button>
+  </div>
+</section>
+
+<!-- ABOUT HER PAGE -->
+
+<section id="about" class="page">
+  <div class="about">
+    <h1>Get to Know Her ♡</h1>
+    <p>Go and search this keyword if you want to know about her.</p>
+    <div class="question-list" id="questionList"></div>
+    <button class="back-btn" onclick="showPage('home')">
+      ← Back to Home
+    </button>
+  </div>
+</section>
+
+<footer>
+  Made with love, only for Sri ♡
+</footer>
+
+<script>
+
+// ALL QUESTIONS AND ANSWERS
+
+const data = [
+{
+title:"Her Birth Date",
+subtitle:"The day a beautiful soul was born ♡",
+keywords:["birth","birthday","date","dob","born","27 august"],
+answer:"27 august 2010"
+},
+{
+title:"Her Favourite Colour",
+subtitle:"A little colour of her world",
+keywords:["colour","color","favourite colour","favorite color","lavender"],
+answer:"Lavender"
+},
+{
+title:"Her Name",
+subtitle:"What should I call her?",
+keywords:["name","her name","who is she","sri"],
+answer:'Sri Umm aap " chand " kehdo'
+},
+{
+title:"Her Location",
+subtitle:"Where does she belong?",
+keywords:["location","city","place","delhi","home"],
+answer:"Sapno ka saher Delhi"
+},
+{
+title:"Her Insecurity",
+subtitle:"If only she could see herself through my eyes",
+keywords:["insecurity","insecure","teeth","nose","looks"],
+answer:"Ummm Meri aankho se dekho to sab khubsurat par usse uske dant naak Bekar lagte"
+},
+{
+title:"Her Eyes",
+subtitle:"It's Means 'Chand' ♡",
+keywords:["eye","eyes","her eye","her eyes","aankhein","aankhen"],
+answer:"Kisi se pucho to Bole Her eye's are beautiful But Maii Kahu to \"Sitaarnon se bhari raatein pasand hain, Door se suni uski baatein pasand hain.\\n\\nTaarif ke qaabil hain uski zulfein bhi, Mujhe zyada uski aankhein pasand hain \""
+},
+{
+title:"Her Personality",
+subtitle:"A little description of her soul ♡",
+keywords:["personality","nature","behaviour","attitude","cute","chulbuli"],
+answer:"Yun hi khuli rakho…\\nTum par khuli zulfein achhi lagti hain.\\nSajna sanvarna bhi achha hai magar,\\nTum par saadgi bhi achhi lagti hai.\\nTum chulbuli si ladki ho,\\nTum par sanjeedgi achhi nahi lagti.\\nTum baat Baat par hasa karo,\\nTum par hansi achhi lagti hai"
+},
+{
+title:"Her Beauty",
+subtitle:"If only she could see herself through my eyes",
+keywords:["beauty","beautiful","pretty","gorgeous","looks","glow"],
+answer:"The moon wishes it had your glow, the stars wish they had yoir light and I just wish you could see yourself through my eyes"
+},
+{
+title:"Her Voice",
+subtitle:"A voice I could listen to forever ♡",
+keywords:["voice","sound","awaj","awaaz","speak","talk"],
+answer:"Apki Awaj Sunke Payar aata haii Muje Apni awaj dekar muje manaya karo"
+},
+{
+title:"Her Fragrance",
+subtitle:"A fragrance that reaches even through pictures",
+keywords:["fragrance","fragnance","smell","perfume","khusbu","mahek"],
+answer:"Nah Jaane konsi Khusbu se banaya haii Khuda ne apko Apki Mahek Apki Tasviron se aati hai"
+},
+{
+title:"Her Favourite Food",
+subtitle:"Our little foodie ♡",
+keywords:["food","favourite food","favorite food","momos","eating"],
+answer:"Momos ( Chatori hai )"
+},
+{
+title:"Her Hairs",
+subtitle:"Some words about her beautiful hair",
+keywords:["hair","hairs","baal","zulfein","zulf"],
+answer:"Baalo ke liye kyaa hi Bole Zulf aap savarti ho bikhar hum jaate hai"
+}
+];
+
+// PAGE SWITCHING
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+  document.getElementById("suggestions").style.display = "none";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// SEARCH
+
+let currentResults = [];
+
+function normalize(text) {
+  return text.toLowerCase().trim();
+}
+
+function searchItems() {
+  const input = normalize(document.getElementById("search").value);
+  const box = document.getElementById("suggestions");
+
+  box.innerHTML = "";
+  currentResults = [];
+
+  if (!input) {
+    box.style.display = "none";
+    return;
+  }
+
+  currentResults = data.filter(item => {
+    const terms = [item.title, ...item.keywords];
+    return terms.some(term =>
+      normalize(term).includes(input) ||
+      input.includes(normalize(term))
+    );
+  });
+
+  if (currentResults.length === 0) {
+    box.innerHTML = "<div>No results found ♡</div>";
+  } else {
+    currentResults.forEach(item => {
+      const option = document.createElement("div");
+      option.textContent = item.title + " ♡";
+      option.onclick = () => openAnswer(item);
+      box.appendChild(option);
+    });
+  }
+
+  box.style.display = "block";
+}
+
+function openFirstResult() {
+  if (currentResults.length > 0) {
+    openAnswer(currentResults[0]);
+  }
+}
+
+function openAnswer(item) {
+  document.getElementById("answerTitle").textContent = item.title;
+  document.getElementById("answerSubtitle").textContent = item.subtitle;
+  document.getElementById("answerText").textContent = item.answer;
+
+  showPage("answer");
+}
+
+// ABOUT HER LIST
+
+function loadQuestions() {
+  const list = document.getElementById("questionList");
+
+  data.forEach(item => {
+    const button = document.createElement("button");
+    button.className = "question";
+    button.innerHTML = item.title + "<span>Tap to explore ♡</span>";
+    button.onclick = () => openAnswer(item);
+    list.appendChild(button);
+  });
+}
+
+loadQuestions();
+
+// FLOATING HEART ANIMATION
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = Math.random() > 0.5 ? "♡" : "♥";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (12 + Math.random() * 15) + "px";
+  heart.style.animationDuration = (7 + Math.random() * 6) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 13000);
+}
+
+setInterval(createHeart, 900);
+
+</script>
+</body>
+</html>
