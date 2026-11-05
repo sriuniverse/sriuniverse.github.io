@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZYVO - Social Universe</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#090811;--panel:#131220;--panel2:#1c192a;--border:#29253b;--purple:#a855f7;--muted:#9995aa}
+body{background:var(--bg);color:#fff;font-family:Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+.topbar{height:70px;position:sticky;top:0;z-index:10;background:#0c0a15ee;backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%}
+.logo{font-size:29px;font-weight:900;letter-spacing:3px}.logo span{color:var(--purple)}
+.search{background:var(--panel2);border:1px solid var(--border);padding:12px 16px;border-radius:12px;color:white;width:300px;outline:none}
+.topright{display:flex;gap:10px}
+.btn{background:linear-gradient(120deg,#7825d5,#b44cf5);border:0;color:white;padding:12px 18px;border-radius:10px;font-weight:bold}
+.iconbtn{background:var(--panel2);border:1px solid var(--border);color:white;padding:11px;border-radius:10px}
+.layout{max-width:1400px;margin:auto;padding:24px 20px;display:grid;grid-template-columns:210px minmax(300px,650px) 270px;gap:24px}
+.sidebar{position:sticky;top:95px;height:calc(100vh - 110px);display:flex;flex-direction:column;gap:7px}
+.nav{padding:14px;border-radius:11px;color:#aaa6bb;cursor:pointer;font-size:14px;display:flex;gap:13px}
+.nav:hover,.nav.active{background:#29183d;color:white}
+.nav.active{border-left:3px solid var(--purple)}
+.nav strong{font-size:18px}
+.sidebottom{margin-top:auto}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:17px}
+.stories{padding:18px;margin-bottom:19px}
+.label{color:var(--muted);font-size:12px;margin-bottom:15px}
+.storylist{display:flex;gap:15px;overflow:auto}
+.story{min-width:56px;text-align:center;cursor:pointer}
+.ring{width:56px;height:56px;padding:3px;margin:auto auto 7px;border-radius:50%;background:linear-gradient(130deg,#812eff,#f052d9,#ffad48)}
+.ring div{height:100%;border:3px solid var(--panel);border-radius:50%;background:linear-gradient(135deg,#441568,#a64bd4);display:grid;place-items:center}
+.story small{font-size:11px;color:#ccc}
+.post{padding:17px;margin-bottom:18px}
+.user{display:flex;align-items:center;gap:10px}
+.avatar{height:40px;width:40px;border-radius:50%;background:linear-gradient(135deg,#7c32cc,#e879c7);display:grid;place-items:center;font-weight:bold}
+.user small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.more{margin-left:auto;background:none;border:0;color:white;font-size:20px}
+.caption{font-size:13px;line-height:1.7;color:#ddd;margin:15px 0}
+.postimg{height:330px;border-radius:12px;display:grid;place-items:center;font-size:42px;font-weight:900;letter-spacing:4px;background:linear-gradient(140deg,#190e31,#7439a8,#181025)}
+.postimg.two{background:linear-gradient(130deg,#092d39,#397c94,#171326)}
+.postimg.three{background:linear-gradient(140deg,#451b36,#a7467d,#21132e)}
+.postimg img{height:100%;width:100%;object-fit:cover;border-radius:12px}
+.actions{display:flex;gap:20px;padding:14px 0}
+.action{background:none;border:0;color:#c6c0d1;font-size:20px}
+.action.liked{color:#ff4d91}
+.postbottom{font-size:12px;color:var(--muted)}
+.commentbox{display:flex;gap:8px;margin-top:13px}
+.commentbox input{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--border);border-radius:9px;padding:10px;color:white}
+.commentbox button{background:none;color:var(--purple);border:0}
+.right{display:flex;flex-direction:column;gap:18px}
+.profilecard{padding:17px;text-align:center}
+.cover{height:65px;border-radius:11px;background:linear-gradient(120deg,#48177c,#b44bea,#241044)}
+.profileavatar{height:65px;width:65px;border-radius:50%;border:4px solid var(--panel);background:linear-gradient(140deg,#a855f7,#ed6bcb);margin:-32px auto 10px;display:grid;place-items:center;font-size:23px}
+.stats{display:flex;justify-content:space-around;margin-top:17px}
+.stats b{display:block}.stats small{font-size:11px;color:var(--muted)}
+.suggestions,.trends{padding:17px}
+.suggest{display:flex;align-items:center;gap:9px;margin:15px 0}
+.suggest .avatar{width:34px;height:34px}
+.suggestinfo{flex:1;font-size:12px}
+.suggestinfo small{display:block;color:var(--muted);margin-top:4px}
+.follow{background:#29173c;color:#c88aff;border:0;padding:8px;border-radius:8px;font-size:11px}
+.trend{margin:15px 0;font-size:13px}
+.trend small{color:var(--muted)}
+.trend b{display:block;margin-top:5px}
+.page{display:none;grid-column:2 / 4;min-height:500px}
+.page.show{display:block}
+.pagebox{padding:25px}
+.pagebox h2{margin-bottom:20px}
+.pagebox p{color:var(--muted);line-height:1.8}
+.gridposts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gridposts div{height:150px;border-radius:12px;background:linear-gradient(135deg,#30134e,#9747c5);display:grid;place-items:center;font-size:25px}
+.message{display:flex;gap:12px;padding:15px;border-bottom:1px solid var(--border)}
+.message small{color:var(--muted)}
+.reel{height:300px;margin:12px 0;border-radius:15px;background:linear-gradient(140deg,#34144c,#9746ad,#140e22);display:grid;place-items:center;font-size:35px}
+.notice{padding:17px;border-bottom:1px solid var(--border);color:#ddd;font-size:14px}
+.modal{display:none;position:fixed;inset:0;background:#000c;z-index:30;align-items:center;justify-content:center;padding:20px}
+.modalbox{background:var(--panel);border:1px solid var(--purple);border-radius:18px;padding:25px;width:100%;max-width:380px}
+.modalbox h2{margin-bottom:18px}
+.modalbox input,.modalbox textarea{width:100%;padding:13px;margin:8px 0;background:#090811;color:white;border:1px solid var(--border);border-radius:9px}
+.modalbox button{width:100%;margin-top:10px}
+.close{float:right;background:none;color:white;border:0;font-size:20px}
+.mobilebar{display:none}
+footer{text-align:center;padding:25px;color:var(--muted);border-top:1px solid var(--border)}
+@media(max-width:950px){
+.layout{grid-template-columns:180px minmax(0,1fr)}
+.right{display:none}.page{grid-column:2}
+}
+@media(max-width:600px){
+.topbar{padding:0 15px;height:62px}
+.logo{font-size:23px}.search{display:none}
+.topright .iconbtn{display:none}
+.layout{display:block;padding:14px 12px 85px}
+.sidebar{display:none}
+.page{min-height:400px}
+.mobilebar{position:fixed;bottom:0;left:0;right:0;background:#11101d;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:13px 4px;z-index:15}
+.mobilebar button{background:none;border:0;color:#c6b9d8;font-size:21px}
+.postimg{height:260px}
+.gridposts div{height:110px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+ <div class="logo">Ƶ <span>ZYVO</span></div>
+ <input class="search" id="search" placeholder="⌕ Search people, posts...">
+ <div class="topright">
+  <button class="iconbtn" onclick="page('notifications')">♧</button>
+  <button class="iconbtn" onclick="page('messages')">✉</button>
+  <button class="btn" onclick="openModal('postmodal')">+ Create</button>
+ </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+ <div class="nav active" onclick="page('home',this)"><strong>⌂</strong> Home</div>
+ <div class="nav" onclick="page('explore',this)"><strong>⌕</strong> Explore</div>
+ <div class="nav" onclick="page('reels',this)"><strong>▷</strong> Reels</div>
+ <div class="nav" onclick="page('messages',this)"><strong>✉</strong> Messages</div>
+ <div class="nav" onclick="page('notifications',this)"><strong>♡</strong> Notifications</div>
+ <div class="nav" onclick="page('profile',this)"><strong>◉</strong> My Profile</div>
+ <div class="nav" onclick="openModal('postmodal')"><strong>＋</strong> Create Post</div>
+ <div class="sidebottom">
+  <div class="nav" onclick="page('settings',this)"><strong>⚙</strong> Settings</div>
+ </div>
+</aside>
+
+<main id="home">
+ <div class="card stories">
+  <div class="label">STORIES · YOUR CIRCLE</div>
+  <div class="storylist">
+   <div class="story" onclick="openModal('storymodal')"><div class="ring"><div>+</div></div><small>Your Story</small></div>
+   <div class="story"><div class="ring"><div>A</div></div><small>Alex</small></div>
+   <div class="story"><div class="ring"><div>S</div></div><small>Sarah</small></div>
+   <div class="story"><div class="ring"><div>J</div></div><small>John</small></div>
+   <div class="story"><div class="ring"><div>M</div></div><small>Mia</small></div>
+   <div class="story"><div class="ring"><div>K</div></div><small>Karan</small></div>
+  </div>
+ </div>
+ <div class="feedhead"><div class="label">YOUR PERSONAL FEED</div></div>
+ <div id="posts">
+  <article class="card post">
+   <div class="user"><div class="avatar">A</div><div><b>@alex.design</b><small>New Delhi · 2 hours ago</small></div><button class="more">···</button></div>
+   <p class="caption">Creating something beautiful. Every little detail matters. ✨</p>
+   <div class="postimg">CREATIVE WORLD</div>
+   <div class="actions"><button class="action" onclick="like(this)">♡</button><button class="action" onclick="comment(this)">♧</button><button class="action" onclick="share()">↗</button><button class="action" onclick="save(this)" style="margin-left:auto">♧</button></div>
+   <div class="postbottom"><b>1,284 likes</b><br><br>View all 42 comments</div>
+   <div class="commentbox"><input placeholder="Add a comment..."><button onclick="commentInput(this)">Post</button></div>
+  </article>
+  <article class="card post">
+   <div class="user"><div class="avatar">S</div><div><b>@sarah.official</b><small>Mumbai · 5 hours ago</small></div><button class="more">···</button></div>
+   <p class="caption">Chasing new experiences and collecting memories. 🌍</p>
+   <div class="postimg two">EXPLORE MORE</div>
+   <div class="actions"><button class="action" onclick="like(this)">♡</button><button class="action" onclick="comment(this)">♧</button><button class="action" onclick="share()">↗</button><button class="action" onclick="save(this)" style="margin-left:auto">♧</button></div>
+   <div class="postbottom"><b>892 likes</b><br><br>View all 19 comments</div>
+   <div class="commentbox"><input placeholder="Add a comment..."><button onclick="commentInput(this)">Post</button></div>
+  </article>
+  <article class="card post">
+   <div class="user"><div class="avatar">J</div><div><b>@john.visuals</b><small>London · Yesterday</small></div><button class="more">···</button></div>
+   <p class="caption">A little creativity goes a long way. 💜</p>
+   <div class="postimg three">ART & LIFE</div>
+   <div class="actions"><button class="action" onclick="like(this)">♡</button><button class="action" onclick="comment(this)">♧</button><button class="action" onclick="share()">↗</button><button class="action" onclick="save(this)" style="margin-left:auto">♧</button></div>
+   <div class="postbottom"><b>2,041 likes</b></div>
+   <div class="commentbox"><input placeholder="Add a comment..."><button onclick="commentInput(this)">Post</button></div>
+  </article>
+ </div>
+</main>
+
+<aside class="right">
+ <div class="card profilecard">
+  <div class="cover"></div><div class="profileavatar">Z</div>
+  <b>@zyvo_user</b><p style="font-size:12px;color:var(--muted);margin-top:7px">Welcome to your universe.</p>
+  <div class="stats"><div><b>0</b><small>Posts</small></div><div><b>0</b><small>Followers</small></div><div><b>0</b><small>Following</small></div></div>
+ </div>
+ <div class="card suggestions">
+  <div class="label">SUGGESTED FOR YOU</div>
+  <div class="suggest"><div class="avatar">M</div><div class="suggestinfo"><b>@mia.art</b><small>Creative creator</small></div><button class="follow" onclick="follow(this)">Follow</button></div>
+  <div class="suggest"><div class="avatar">R</div><div class="suggestinfo"><b>@rahul.tech</b><small>Technology</small></div><button class="follow" onclick="follow(this)">Follow</button></div>
+  <div class="suggest"><div class="avatar">N</div><div class="suggestinfo"><b>@noah.jpg</b><small>Photography</small></div><button class="follow" onclick="follow(this)">Follow</button></div>
+ </div>
+ <div class="card trends">
+  <div class="label">TRENDING NOW</div>
+  <div class="trend"><small>Trending · Design</small><b>#CreativeUniverse</b></div>
+  <div class="trend"><small>Popular · Lifestyle</small><b>#DailyMoments</b></div>
+  <div class="trend"><small>Trending · Technology</small><b>#FutureIsNow</b></div>
+ </div>
+</aside>
+
+<section class="page card" id="explore"><div class="pagebox"><h2>Explore Universe ✦</h2><p>Discover creators, ideas and communities.</p><br><div class="gridposts"><div>✦</div><div>◈</div><div>✧</div><div>◎</div><div>✦</div><div>◉</div></div></div></section>
+
+<section class="page card" id="reels"><div class="pagebox"><h2>ZYVO Reels ▷</h2><div class="reel">▶ &nbsp; REELS</div><p>Short videos from your community will appear here.</p></div></section>
+
+<section class="page card" id="messages"><div class="pagebox"><h2>Messages ✉</h2><div class="message"><div class="avatar">A</div><div><b>Alex</b><br><small>Start a conversation</small></div></div><div class="message"><div class="avatar">S</div><div><b>Sarah</b><br><small>Start a conversation</small></div></div><p style="margin-top:20px">Real-time messaging will be enabled after backend setup.</p></div></section>
+
+<section class="page card" id="notifications"><div class="pagebox"><h2>Notifications ♡</h2><div class="notice">♡ &nbsp; Welcome to ZYVO!</div><div class="notice">✦ &nbsp; Your social universe is ready to explore.</div></div></section>
+
+<section class="page card" id="profile"><div class="pagebox"><h2>My Profile</h2><div class="profileavatar" style="margin:10px 0">Z</div><h3>@zyvo_user</h3><p>Your bio will appear here.</p><br><button class="btn" onclick="openModal('profilemodal')">Edit Profile</button><br><br><h3>Your Posts</h3><br><div class="gridposts"><div>+</div><div>+</div><div>+</div></div></div></section>
+
+<section class="page card" id="settings"><div class="pagebox"><h2>Settings ⚙</h2><p>Account settings<br><br>Privacy and security<br><br>Notifications<br><br>Appearance<br><br>Help and support</p></div></section>
+</div>
+
+<nav class="mobilebar">
+ <button onclick="page('home')">⌂</button>
+ <button onclick="page('explore')">⌕</button>
+ <button onclick="openModal('postmodal')">＋</button>
+ <button onclick="page('reels')">▷</button>
+ <button onclick="page('profile')">◉</button>
+</nav>
+
+<footer>Ƶ ZYVO · Connect · Share · Belong<br><br>© 2026 ZYVO</footer>
+
+<div class="modal" id="postmodal"><div class="modalbox"><button class="close" onclick="closeModal('postmodal')">✕</button><h2>Create Post</h2><input id="caption" placeholder="Write something..."><input type="file" id="photo" accept="image/*"><button class="btn" onclick="createPost()">Publish Post</button></div></div>
+<div class="modal" id="storymodal"><div class="modalbox"><button class="close" onclick="closeModal('storymodal')">✕</button><h2>Add Story</h2><input type="file" accept="image/*"><button class="btn" onclick="alert('Story upload will be enabled with backend setup.')">Continue</button></div></div>
+<div class="modal" id="profilemodal"><div class="modalbox"><button class="close" onclick="closeModal('profilemodal')">✕</button><h2>Edit Profile</h2><input placeholder="Your name"><input placeholder="Your bio"><button class="btn" onclick="alert('Profile editing will be connected to backend later.')">Save</button></div></div>
+
+<script>
+function page(id,el){
+ document.querySelectorAll('main,.page').forEach(x=>x.style.display='none');
+ document.getElementById(id).style.display=id==='home'?'block':'block';
+ document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));
+ if(el)el.classList.add('active');
+ window.scrollTo(0,0);
+}
+function openModal(id){document.getElementById(id).style.display='flex'}
+function closeModal(id){document.getElementById(id).style.display='none'}
+function like(el){
+ el.classList.toggle('liked');
+ el.innerHTML=el.classList.contains('liked')?'♥':'♡';
+}
+function save(el){
+ el.classList.toggle('liked');
+ el.innerHTML=el.classList.contains('liked')?'▣':'♧';
+}
+function follow(el){
+ el.innerText=el.innerText==='Follow'?'Following':'Follow';
+}
+function comment(el){
+ el.closest('.post').querySelector('.commentbox input').focus();
+}
+function commentInput(el){
+ const input=el.previousElementSibling;
+ if(!input.value.trim())return;
+ alert('Demo comment: '+input.value);
+ input.value='';
+}
+function share(){
+ if(navigator.share)navigator.share({title:'ZYVO',text:'Check out ZYVO!'});
+ else alert('Share ZYVO with your friends!');
+}
+function createPost(){
+ const caption=document.getElementById('caption').value;
+ const file=document.getElementById('photo').files[0];
+ if(!caption&&!file){alert('Add a caption or photo first.');return}
+ const post=document.createElement('article');
+ post.className='card post';
+ let image=file?'<div class="postimg"><img src="'+URL.createObjectURL(file)+'"></div>':'';
+ post.innerHTML='<div class="user"><div class="avatar">Y</div><div><b>@zyvo_user</b><small>Just now</small></div></div><p class="caption"></p>'+image+'<div class="actions"><button class="action" onclick="like(this)">♡</button><button class="action" onclick="comment(this)">♧</button><button class="action" onclick="share()">↗</button></div>';
+ post.querySelector('.caption').textContent=caption;
+ document.getElementById('posts').prepend(post);
+ document.getElementById('caption').value='';
+ document.getElementById('photo').value='';
+ closeModal('postmodal');
+ page('home');
+}
+document.getElementById('search').addEventListener('keydown',e=>{
+ if(e.key==='Enter'){
+  alert('Search will find real users after database integration. Search: '+e.target.value);
+ }
+});
+</script>
+</body>
+</html>
